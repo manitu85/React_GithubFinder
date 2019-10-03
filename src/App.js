@@ -14,17 +14,17 @@ class App extends Component {
   }
 
   // Fetch data from github api 
-  async componentDidMount() {
-    this.setState({loading: true})
+  // async componentDidMount() {
+  //   this.setState({loading: true})
   
-    const users = await fetch(`https://api.github.com/users?client_id=${envClientId}&client_secret=${envClientSecret}`)
-    const data = await users.json()
+  //   const users = await fetch(`https://api.github.com/users?client_id=${envClientId}&client_secret=${envClientSecret}`)
+  //   const data = await users.json()
     
-    this.setState({
-      users: data,
-      loading: false
-    })
-  }
+  //   this.setState({
+  //     users: data,
+  //     loading: false
+  //   })
+  // }
 
   // Search github users
   searchUsers = async (text) => {
