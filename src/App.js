@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Navbar from './Components/layout/Navbar';
 import Users from './Components/users/Users';
 import Search from './Components/users/Search';
+import Alert from './Components/layout/Alert';
 
 const envClientId = process.env.REACT_APP_GITHUB_CLIENT_ID
 const envClientSecret = process.env.REACT_APP_GITHUB_CLIENT_ID
@@ -10,7 +11,8 @@ class App extends Component {
 
   state = {
     users: [],
-    loading: false
+    loading: false,
+    alert: null
   }
 
   // Fetch data from github api 
@@ -26,7 +28,7 @@ class App extends Component {
   //   })
   // }
 
-  // Search github users
+  // Search github users - driling props as text
   searchUsers = async (text) => {
     this.setState({ loading: true })
 
@@ -38,17 +40,33 @@ class App extends Component {
       loading: false
     })
   }
+
+  // Clear users from state
+  clearUsers = () => this.setState({users: [], loading: false})
+
+  // Set alert for empty search
+  setAlert = (msg, type) => {
+    this.setState({ alert: {msg, type} })
+    setTimeout(() => this.setState({alert: null}), 4000)
+  }
   
 
   render() {
+    const { users, loading, alert } = this.state
     return (
       <>
         <Navbar title='GitHub Finder'/>
         <div className='container'>
-          <Search searchUsers={this.searchUsers}  />
+          <Alert alert={alert} />
+          <Search 
+            searchUsers={this.searchUsers} 
+            clearUsers={this.clearUsers}
+            showClear={users.length > 0 ? true : false}
+            setAlert={this.setAlert}
+          />
           <Users 
-            users={this.state.users}
-            loading={this.state.loading}
+            users={users}
+            loading={loading}
           />
         </div>
       </>
