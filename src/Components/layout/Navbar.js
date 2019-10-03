@@ -3,8 +3,7 @@ import { FaGithub }from 'react-icons/fa'
 import PropTypes from 'prop-types'
 
 
-const Navbar = ({title}) => {
-  return (
+const Navbar = ({title}) => (
     <nav className='navbar bg-primary'>
       <h1><FaGithub /> {title}</h1>
       {/* <ul>
@@ -13,7 +12,7 @@ const Navbar = ({title}) => {
       </ul> */}
     </nav>
   )
-}
+
 
 Navbar.propTypes = {
   title: PropTypes.string.isRequired,
