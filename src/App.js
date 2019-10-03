@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Navbar from './Components/layout/Navbar';
 import Users from './Components/users/Users';
 import Search from './Components/users/Search';
 import Alert from './Components/layout/Alert';
+import About from './Components/pages/About';
 
 const envClientId = process.env.REACT_APP_GITHUB_CLIENT_ID
 const envClientSecret = process.env.REACT_APP_GITHUB_CLIENT_ID
@@ -14,19 +16,6 @@ class App extends Component {
     loading: false,
     alert: null
   }
-
-  // Fetch data from github api 
-  // async componentDidMount() {
-  //   this.setState({loading: true})
-  
-  //   const users = await fetch(`https://api.github.com/users?client_id=${envClientId}&client_secret=${envClientSecret}`)
-  //   const data = await users.json()
-    
-  //   this.setState({
-  //     users: data,
-  //     loading: false
-  //   })
-  // }
 
   // Search github users - driling props as text
   searchUsers = async (text) => {
@@ -54,22 +43,30 @@ class App extends Component {
   render() {
     const { users, loading, alert } = this.state
     return (
-      <>
+      <Router>
         <Navbar title='GitHub Finder'/>
         <div className='container'>
           <Alert alert={alert} />
-          <Search 
-            searchUsers={this.searchUsers} 
-            clearUsers={this.clearUsers}
-            showClear={users.length > 0 ? true : false}
-            setAlert={this.setAlert}
-          />
-          <Users 
-            users={users}
-            loading={loading}
-          />
+          <Switch>
+            <Route  exact path='/' render={props => (
+              <>
+                <Search
+                  searchUsers={this.searchUsers}
+                  clearUsers={this.clearUsers}
+                  showClear={users.length > 0 ? true : false}
+                  setAlert={this.setAlert}
+                />
+                <Users
+                  users={users}
+                  loading={loading}
+                />
+              </>
+              )} 
+            />
+            <Route exact path='/About' component={About} />
+          </Switch>
         </div>
-      </>
+      </Router>
     )
   }
 }
