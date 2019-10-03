@@ -21,7 +21,7 @@ class App extends Component {
   }
 
   // Search GitHub users - driling props as text
-  searchUsers = async (text) => {
+  searchUsers = async text => {
     this.setState({ loading: true })
 
     const users = await fetch(`https://api.github.com/search/users?q=${text}&client_id=${envClientId}&client_secret=${envClientSecret}`)
@@ -34,7 +34,7 @@ class App extends Component {
   }
 
   // Get single Github user
-  getUser = async (username) => {
+  getUser = async username => {
     this.setState({ loading: true })
 
     const users = await fetch(`https://api.github.com/users/${username}?client_id=${envClientId}&client_secret=${envClientSecret}`)
@@ -42,6 +42,19 @@ class App extends Component {
 
     this.setState({
       user: data,
+      loading: false
+    })
+  }
+
+  // Get user repos
+  getUserRepos = async username => {
+    this.setState({ loading: true })
+
+    const users = await fetch(`https://api.github.com/users/${username}/repos?per_page=6&sort=created:asc&client_id=${envClientId}&client_secret=${envClientSecret}`)
+    const data = await users.json()
+
+    this.setState({
+      repos: data,
       loading: false
     })
   }
@@ -57,7 +70,7 @@ class App extends Component {
   
 
   render() {
-    const { users, loading, alert, user } = this.state
+    const { users, loading, alert, user, repos } = this.state
     return (
       <Router>
         <Navbar title='GitHub Finder'/>
@@ -84,7 +97,9 @@ class App extends Component {
               <User 
                 {...props} 
                 getUser={this.getUser}
+                getUserRepos={this.getUserRepos}
                 user={user}
+                repos={repos}
                 loading={loading}
               />
             )} 
