@@ -10,7 +10,7 @@ class User extends Component {
 
   componentDidMount() {
     this.props.getUser(this.props.match.params.login)
-    this.props.getUserRepos(this.props.match.params.login)
+    this.props.getUserRepos(this.props.match.params.login) 
   }
 
   static propTypes = {

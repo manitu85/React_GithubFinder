@@ -50,6 +50,8 @@ class App extends Component {
   getUserRepos = async username => {
     this.setState({ loading: true })
 
+    // const users = await fetch(`https://api.github.com/users/${username}/repos?per_page=6&sort=created:asc&client_id=${envClientId}&client_secret=${envClientSecret}`)
+
     const users = await fetch(`https://api.github.com/users/${username}/repos?per_page=6&sort=created:asc&client_id=${envClientId}&client_secret=${envClientSecret}`)
     const data = await users.json()
 
