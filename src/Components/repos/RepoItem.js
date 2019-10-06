@@ -7,7 +7,7 @@ const RepoItem = ({repo}) => {
   return (
     <div className='card'>
       <a href={repo.html_url}>{repo.name}</a>
-      <h1>hehehe</h1>
+      <h1>{repo.name}</h1>
     </div>
   )}
 
