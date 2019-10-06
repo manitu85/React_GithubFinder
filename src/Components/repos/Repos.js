@@ -1,19 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import RepoItem from './RepoItem';
 
-// const Repos = ({repos}) => repos.map(repo => <RepoItem key={repo.id} repo={repo} />)
-  // console.log(repos);
-
-const Repos = ({repos}) => {
-  return repos.map(repo => <RepoItem key={repo.id} repo={repo} />)
-  // ovde nsro ne prolazi ???
-}
-
-
-Repos.propTypes = {
-  repos: PropTypes.array.isRequired,
-}
+const Repos = ({repos}) => repos.map(repo => <RepoItem key={repo.id} repo={repo} />)
 
 export default Repos
 

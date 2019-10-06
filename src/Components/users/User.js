@@ -1,13 +1,18 @@
-import React, { useEffect, Fragment } from 'react'
+import React, { useEffect, useContext, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Spinner from '../layout/Spinner'
 import Repos from '../repos/Repos'
 
+import GithubContext from '../../context/github/githubContext';
 
-const User = ({ user, getUser, getUserRepos, match, loading, repos }) => {
 
-  // Effect as component did mount, empty input [] because infinite loop
+const User = ({ match }) => {
+
+  const githubContext = useContext(GithubContext)
+  const { user, getUser, getUserRepos, loading, repos } = githubContext
+
+  // Effect as component did mount, empty input [] to stop infinite loop
   useEffect(() => {
     getUser(match.params.login)
     getUserRepos(match.params.login)
@@ -89,8 +94,8 @@ const User = ({ user, getUser, getUserRepos, match, loading, repos }) => {
         <div className='card text-center'>
           <div className='badge badge-primary'>Followers: {followers}</div>
           <div className='badge badge-success'>Following: {following}</div>
-          <div className='badge badge-danger'>Followers: {public_repos}</div>
-          <div className='badge badge-dark'>Followers: {public_gists}</div>
+          <div className='badge badge-danger'>Public repos: {public_repos}</div>
+          <div className='badge badge-dark'>Public gists: {public_gists}</div>
         </div>
 
         <Repos repos={repos}/>
@@ -99,11 +104,7 @@ const User = ({ user, getUser, getUserRepos, match, loading, repos }) => {
 }
 
 User.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired,
   repos: PropTypes.array.isRequired,
-  getUser: PropTypes.func.isRequired,
-  getUserRepos: PropTypes.func.isRequired,
 }
 
 
