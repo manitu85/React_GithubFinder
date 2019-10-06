@@ -8,15 +8,15 @@ export default (state, action) => {
 
   case SET_ALERT:
     return { 
-      ...state, 
-      }
+      alert: action.payload
+    }
 
   case REMOVE_ALERT:
-  return { 
-    ...state, 
+    return { 
+      alert: null
     }
 
   default:
-      return state
+    return state
   }
 }

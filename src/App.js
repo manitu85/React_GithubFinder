@@ -1,11 +1,11 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Navbar from './Components/layout/Navbar';
-import Users from './Components/users/Users';
-import Search from './Components/users/Search';
+import User from './Components/users/User';
 import Alert from './Components/layout/Alert';
 import About from './Components/pages/About';
-import User from './Components/users/User';
+import Home from './Components/pages/Home';
+import NotFound from './Components/pages/NotFound';
 
 import GithubState from './context/github/GithubState'
 import AlertState from './context/alert/alertState'
@@ -20,15 +20,11 @@ const App = () => {
           <div className='container'>
             <Alert alert={alert} />
             <Switch>
-              <Route exact path='/' render={props => (
-                <>
-                  <Search/>
-                  <Users />
-                </>
-              )}
-              />
+              
+              <Route exact path='/' component={Home} />
               <Route exact path='/about' component={About} />
               <Route exact path='/user/:login' component={User} />
+              <Route path='*' component={NotFound} />
               />
             </Switch>
           </div>

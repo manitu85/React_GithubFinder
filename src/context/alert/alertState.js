@@ -17,15 +17,14 @@ const AlertState = props => {
   const [state, dispatch] = useReducer(AlertReducer, initialState)
 
   // Set alert for empty search
-  const showAlert = (msg, type) => {
+  const setAlert = (msg, type) => {
 
     dispatch({
       type: SET_ALERT,
-       
+      payload: { msg, type }
     })
 
-    setAlert({ msg, type })
-    setTimeout(() => setAlert(null), 4000)
+    setTimeout(() => dispatch({ type: REMOVE_ALERT }), 4000)
   }
 
 
